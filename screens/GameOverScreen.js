@@ -1,28 +1,37 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  ScrollView,
+} from "react-native";
 import Title from "../components/ui/Title";
 import PrimaryButton1 from "../components/ui/PrimaryButton1";
 function GameOverScreen({ roundsNumber, userNumber, onStartNeGame }) {
   return (
-    <View style={styles.rootContainer}>
-      <Title>GAME OVER!</Title>
-      <View style={styles.imgContainer}>
-        <Image
-          style={styles.image}
-          source={require("../assets/images/success.png")}
-        />
+    <ScrollView>
+      <View style={styles.rootContainer}>
+        <Title>GAME OVER!</Title>
+        <View style={styles.imgContainer}>
+          <Image
+            style={styles.image}
+            source={require("../assets/images/success.png")}
+          />
+        </View>
+        <Text style={styles.summaryText}>
+          Your phone needed <Text style={styles.highlight}>{roundsNumber}</Text>{" "}
+          rounds to guess the number{" "}
+          <Text style={styles.highlight}>{userNumber}</Text>.
+        </Text>
+        <PrimaryButton1 onPress={onStartNeGame}>Start New Game</PrimaryButton1>
       </View>
-      <Text style={styles.summaryText}>
-        Your phone needed <Text style={styles.highlight}>{roundsNumber}</Text>{" "}
-        rounds to guess the number{" "}
-        <Text style={styles.highlight}>{userNumber}</Text>.
-      </Text>
-      <PrimaryButton1 onPress={onStartNeGame}>Start New Game</PrimaryButton1>
-    </View>
+    </ScrollView>
   );
 }
 
 export default GameOverScreen;
-
+const deviceW = Dimensions.get("window").width;
 const styles = StyleSheet.create({
   summaryText: {
     fontFamily: "open-sans",
@@ -35,8 +44,8 @@ const styles = StyleSheet.create({
     color: "#020078",
   },
   imgContainer: {
-    width: 300,
-    height: 300,
+    width: deviceW < 380 ? 200 : 300,
+    height: deviceW < 380 ? 200 : 300,
     borderRadius: 150,
     borderWidth: 3,
     borderColor: "black",
